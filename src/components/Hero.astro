@@ -1,43 +1,122 @@
-<section class="w-full bg-white text-[#0c0c1d]">
-  <!-- Contenido principal -->
-  <div
-    class="max-w-3xl mx-auto flex flex-col items-center text-center pt-56 pb-36 px-6"
-  >
-    <p class="uppercase text-sm tracking-widest text-blue-500 mb-4">
-      JRMOLINA
+<section id="servicios" class="py-24 bg-white px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-extrabold text-center mb-4">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600">
+        Servicios
+      </span>
+    </h2>
+    <p class="text-center text-slate-500 mb-12">
+      Selecciona los servicios que te interesan y escríbeme directamente.
     </p>
 
-    <!-- TÍTULO -->
-    <h1
-      class="text-4xl md:text-5xl font-extrabold leading-tight mb-6"
-    >
-      <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
-        Convierto ideas en software
-      </span>
-      <br />
-      <span class="text-slate-400">
-        soluciones digitales reales
-      </span>
-    </h1>
+    <!-- Grid servicios -->
+    <div id="services-grid" class="grid gap-6 md:grid-cols-3">
+      <!-- Servicio -->
+      <button class="service-card" data-service="Desarrollo de aplicaciones web">
+        Desarrollo de aplicaciones web
+      </button>
+      <button class="service-card" data-service="Soluciones cloud">
+        Soluciones cloud
+      </button>
+      <button class="service-card" data-service="Consultoría tecnológica">
+        Consultoría tecnológica
+      </button>
+      <button class="service-card" data-service="Diseño de soluciones">
+        Diseño de soluciones
+      </button>
+      <button class="service-card" data-service="UX / UI">
+        UX / UI
+      </button>
+      <button class="service-card" data-service="Estimaciones de proyectos">
+        Estimaciones de proyectos
+      </button>
+      <button class="service-card" data-service="Arquitectura de microservicios">
+        Arquitectura de microservicios
+      </button>
+      <button class="service-card" data-service="Automatización de procesos">
+        Automatización de procesos
+      </button>
+    </div>
 
-    <p class="text-base text-slate-500 mb-8 max-w-xl">
-      Diseño y desarrollo aplicaciones que transforman necesidades en sistemas
-      funcionales, simples y escalables.
-    </p>
+    <!-- Selección -->
+    <div class="mt-10 text-center">
+      <p id="selected-text" class="text-slate-600 mb-4">
+        No has seleccionado servicios aún.
+      </p>
 
-    <div class="flex flex-wrap justify-center gap-4">
       <a
-        href="#proyectos"
-        class="bg-[#0c0c1d] text-white px-6 py-3 rounded-full font-medium hover:bg-[#1f1f3d] transition shadow"
+        id="whatsapp-btn"
+        href="#"
+        class="inline-block opacity-50 pointer-events-none bg-[#0c0c1d] text-white px-8 py-3 rounded-full font-semibold transition"
+        target="_blank"
       >
-        Ver proyectos
-      </a>
-      <a
-        href="#contacto"
-        class="border border-slate-300 text-[#0c0c1d] px-6 py-3 rounded-full font-medium hover:bg-slate-100 transition"
-      >
-        Contactarme
+        Preguntarle a JR por esto
       </a>
     </div>
   </div>
+
+  <!-- Estilos -->
+  <style>
+    .service-card {
+      padding: 1.5rem;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      background: white;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .service-card.active {
+      background: linear-gradient(to right, #22d3ee, #3b82f6);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 10px 25px rgba(59,130,246,0.4);
+    }
+  </style>
+
+  <!-- Script -->
+  <script is:inline>
+    const cards = document.querySelectorAll(".service-card");
+    const selectedText = document.getElementById("selected-text");
+    const whatsappBtn = document.getElementById("whatsapp-btn");
+
+    let selectedServices = [];
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        const service = card.dataset.service;
+
+        if (selectedServices.includes(service)) {
+          selectedServices = selectedServices.filter(s => s !== service);
+          card.classList.remove("active");
+        } else {
+          selectedServices.push(service);
+          card.classList.add("active");
+        }
+
+        updateUI();
+      });
+    });
+
+    function updateUI() {
+      if (selectedServices.length === 0) {
+        selectedText.textContent = "No has seleccionado servicios aún.";
+        whatsappBtn.classList.add("opacity-50", "pointer-events-none");
+        whatsappBtn.href = "#";
+      } else {
+        selectedText.textContent = "Servicios seleccionados: " + selectedServices.join(", ");
+
+        const message = `Hola JR, me interesa conocer más sobre estos servicios: ${selectedServices.join(", ")}`;
+        whatsappBtn.href = `https://wa.me/573003146150?text=${encodeURIComponent(message)}`;
+        whatsappBtn.classList.remove("opacity-50", "pointer-events-none");
+      }
+    }
+  </script>
 </section>
