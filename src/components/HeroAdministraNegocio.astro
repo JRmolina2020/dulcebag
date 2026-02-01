@@ -1,0 +1,35 @@
+---
+const {
+  title = "Administra tu negocio",
+  subtitle = "CuarentaF es la plataforma que te ayuda a controlar tus ventas, gastos, inventario y reportes. Todo desde un solo lugar, sin complicaciones.",
+  cta = "Hablemos de tu proyecto",
+  image = "/img/yo.png",
+} = Astro.props;
+---
+
+<section
+  class="relative w-full min-h-screen px-6 flex items-center justify-center text-center bg-cover"
+  style={`background-image: url(${image}); background-position: center 80%;`}
+>
+  <!-- Overlay oscuro para legibilidad -->
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <!-- Contenido -->
+  <div class="relative z-10 max-w-2xl">
+    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">
+      {title}
+    </h2>
+    <p class="text-white/80 text-base md:text-lg mb-6">
+      {subtitle}
+    </p>
+   <a
+  href="https://wa.me/573003146150?text=Hola,%20quiero%20hablar%20de%20software"
+  class="btn-shine bg-[#f0c654] hover:bg-[#e2b53e] text-black px-8 py-3 rounded-full font-semibold shadow-md transition inline-block"
+  target="_blank"
+>
+  Hablemos de software
+</a>
+
+  </div>
+</section>
+

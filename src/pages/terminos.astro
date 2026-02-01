@@ -1,0 +1,65 @@
+---
+// src/pages/terminos.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import WhatsappButton from "../components/WhatsappButton.astro";
+---
+
+<BaseLayout title="Términos y Condiciones - JRINHOUSE">
+  <Navbar />
+
+  <main class="max-w-3xl mx-auto px-6 pt-40 pb-24">
+    <h1 class="text-3xl font-bold mb-6">
+      Términos y Condiciones
+    </h1>
+
+    <p class="mb-4 text-slate-600">
+      Al acceder y utilizar este sitio web, aceptas los siguientes términos y
+      condiciones. Por favor, léelos cuidadosamente.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">1. Uso del sitio</h2>
+    <p class="mb-4 text-slate-600">
+      Este sitio tiene como finalidad presentar información sobre servicios de
+      desarrollo de software y soluciones tecnológicas. El uso indebido del
+      contenido o con fines distintos a los aquí descritos no está permitido.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">2. Propiedad intelectual</h2>
+    <p class="mb-4 text-slate-600">
+      Los textos, imágenes, diseños y recursos visuales de este sitio son
+      propiedad de <strong>JRINHOUSE</strong> o de sus respectivos titulares y
+      están protegidos por las leyes de derechos de autor. No está permitida su
+      reproducción sin autorización previa.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">3. Responsabilidad</h2>
+    <p class="mb-4 text-slate-600">
+      La información presentada se ofrece con fines informativos. No se asume
+      responsabilidad por el uso que se haga del contenido ni por decisiones
+      tomadas a partir de él.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">4. Enlaces externos</h2>
+    <p class="mb-4 text-slate-600">
+      Este sitio puede contener enlaces a sitios de terceros. JRINHOUSE no se
+      responsabiliza por el contenido, políticas o prácticas de dichos sitios.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">5. Modificaciones</h2>
+    <p class="mb-4 text-slate-600">
+      Estos términos pueden ser actualizados en cualquier momento sin previo
+      aviso. Se recomienda revisarlos periódicamente.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">6. Contacto</h2>
+    <p class="mb-4 text-slate-600">
+      Para cualquier consulta relacionada con estos términos, puedes comunicarte
+      a través de los medios de contacto disponibles en este sitio web.
+    </p>
+  </main>
+
+  <Footer />
+  <WhatsappButton />
+</BaseLayout>

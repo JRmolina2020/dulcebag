@@ -1,0 +1,96 @@
+<nav class="w-full fixed top-0 left-0 z-50 bg-[#f2f3f4] text-black shadow">
+  <!-- BANNER DE PROMO -->
+  <div
+    class="bg-[#343439] text-white text-sm md:text-base py-2 px-4 flex justify-between items-center"
+  >
+    <div class="flex items-center gap-2">
+      <img src="/img/favico.png" alt="Logo" class="w-6 h-6" />
+      <span id="promo-text"></span>
+    </div>
+    <a
+      href="https://wa.me/573003146150?text=Hola,%20quiero%20agendar%20una%20demostración"
+      target="_blank"
+      class="bg-white text-black px-4 py-1 rounded-full text-sm font-semibold hover:bg-gray-200 transition"
+    >
+      Agendar
+    </a>
+  </div>
+
+  <!-- NAVEGACIÓN -->
+  <div
+    class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between relative"
+  >
+    <!-- LOGO -->
+    <a
+      href="/"
+      class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200"
+    >
+      <img src="/img/favico.png" alt="Logo" class="h-6" />
+      <span class="text-xl font-bold">JRINHOUSE</span>
+    </a>
+
+    <!-- BOTÓN HAMBURGUESA -->
+    <button id="menu-toggle" class="md:hidden text-[#343439]">
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  <!-- SCRIPT PROMO Y MENÚ -->
+  <script is:inline>
+    const meses = [
+      "ENERO",
+      "FEBRERO",
+      "MARZO",
+      "ABRIL",
+      "MAYO",
+      "JUNIO",
+      "JULIO",
+      "AGOSTO",
+      "SEPTIEMBRE",
+      "OCTUBRE",
+      "NOVIEMBRE",
+      "DICIEMBRE",
+    ];
+    const mesActual = meses[new Date().getMonth()];
+    const mensajes = [
+      `En ${mesActual} lo hacemos, ¡sí, con JRINHOUSE! 🚀`,
+      "Transformo ideas en software 👨‍💻",
+      "¿Tienes un proyecto? Hablemos 📩",
+    ];
+    let index = 0;
+    const el = document.getElementById("promo-text");
+    if (el) el.innerText = mensajes[0];
+    setInterval(() => {
+      if (!el) return;
+      index = (index + 1) % mensajes.length;
+      el.innerText = mensajes[index];
+    }, 4000);
+
+    // MENÚ MÓVIL TOGGLE + AUTOCLOSE
+    const toggle = document.getElementById("menu-toggle");
+    const navLinks = document.getElementById("nav-links");
+
+    toggle.addEventListener("click", () => {
+      navLinks.classList.toggle("hidden");
+    });
+
+    // Cerrar al hacer clic en cualquier enlace
+    const links = navLinks.querySelectorAll("a");
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth < 768) {
+          navLinks.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+</nav>

@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Features from "../components/Features.astro";
+import Pricing from "../components/Pricing.astro";
+import Benefits from "../components/Benefits.astro";
+import Navbar from "../components/Navbar.astro";
+import FAQ from "../components/FAQ.astro";
+import WhatsappButton from "../components/WhatsappButton.astro";
+import CommerceTypes from "../components/CommerceTypes.astro";
+import VideoInfo from "../components/VideoInfo.astro";
+import ComunidadLocal from "../components/Divtext.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import Divtextu from "../components/Divtextu.astro";
+import BannerDemo from "../components/BannerDemo.astro";
+import SoporteInfo from "../components/SoporteInfo.astro";
+import PopPrivacidad from "../components/PopPrivacidad.astro";
+import TestimoniosClientes from "../components/TestimoniosClientes.astro";
+import HeroAdministraNegocio from "../components/HeroAdministraNegocio.astro";
+import BienvenidaPop from "../components/BienvenidaPop.astro";
+import InfoPlan from "../components/InfoPlan.astro";
+---
+
+<BaseLayout title="JRINHOUSE - Transformo ideas en software">
+  <Navbar />
+  
+<HeroAdministraNegocio
+  title="Transformo ideas en software"
+  subtitle="Soy José R. Molina, ingeniero de software de Valledupar y fundador de JRINHOUSE y CuarentaF. Más de 5 años desarrollando soluciones cloud y aplicaciones escalables."
+  cta="Hablemos de software"
+  image="/img/yo.jpg"
+/>
+
+  <Features />
+  <Divtextu />
+  <VideoInfo
+    videoSrc="/videos/video.mp4"
+title="Tu negocio, ahora en la nube"
+description="En JRINHOUSE convierto ideas y procesos en soluciones de software cloud que simplifican y ordenan la operación."
+  />
+  <Contact />
+  <FAQ />
+  <SoporteInfo />
+  <Footer />
+  <WhatsappButton />
+  <PopPrivacidad />
+</BaseLayout>

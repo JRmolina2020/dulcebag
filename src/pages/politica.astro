@@ -1,0 +1,59 @@
+---
+// src/pages/politica.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import WhatsappButton from "../components/WhatsappButton.astro";
+---
+
+<BaseLayout title="Política de Privacidad - JRINHOUSE">
+  <Navbar />
+
+  <main class="max-w-3xl mx-auto px-6 pt-40 pb-24">
+    <h1 class="text-3xl font-bold mb-6">
+      Política de Privacidad
+    </h1>
+
+    <p class="mb-4 text-slate-600">
+      En <strong>JRINHOUSE</strong>, la privacidad y protección de los datos es una
+      prioridad. Esta política explica cómo se maneja la información que se
+      comparte a través de este sitio web.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">1. Datos que se recopilan</h2>
+    <p class="mb-4 text-slate-600">
+      Únicamente se recopila información básica como nombre y datos de contacto
+      cuando el usuario decide comunicarse voluntariamente a través de los
+      canales disponibles.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">2. Uso de la información</h2>
+    <p class="mb-4 text-slate-600">
+      La información suministrada se utiliza exclusivamente para responder
+      solicitudes, mensajes o propuestas relacionadas con proyectos de
+      software.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">3. Protección de datos</h2>
+    <p class="mb-4 text-slate-600">
+      Se aplican medidas razonables de seguridad para evitar el acceso no
+      autorizado, la pérdida o el uso indebido de la información.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">4. Derechos del usuario</h2>
+    <p class="mb-4 text-slate-600">
+      El usuario puede solicitar la modificación o eliminación de su
+      información en cualquier momento, escribiendo a los canales de contacto
+      disponibles en el sitio.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">5. Contacto</h2>
+    <p class="mb-4 text-slate-600">
+      Para cualquier duda relacionada con esta política, puedes comunicarte a
+      través de los medios de contacto publicados en este sitio web.
+    </p>
+  </main>
+
+  <Footer />
+  <WhatsappButton />
+</BaseLayout>

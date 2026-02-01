@@ -1,0 +1,55 @@
+<section
+  id="contacto"
+  class="w-full bg-gradient-to-br from-white to-[#ffff] py-20 px-6"
+>
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+    <!-- Columna izquierda: texto -->
+    <div>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-[#067c69] mb-2">
+        Hablemos de tu idea
+      </h2>
+      <p class="text-gray-600 mb-6">
+        Si tienes un proyecto o quieres llevar tu negocio a la nube, escríbeme
+        directamente.
+      </p>
+
+      <p class="text-lg">
+        Convirtamos tu idea en
+        <strong class="text-[#067c69] font-bold">software real</strong>.
+      </p>
+    </div>
+
+    <!-- Columna derecha: nombre + botón -->
+    <form onsubmit="return sendToWhatsApp(event)" class="space-y-4 w-full">
+      <input
+        id="nombre"
+        type="text"
+        placeholder="Tu nombre"
+        required
+        class="w-full p-3 rounded border border-gray-300"
+      />
+
+      <button
+        type="submit"
+        class="w-full bg-[#067c69] hover:bg-[#045e50] text-white font-medium py-3 px-6 rounded transition"
+      >
+        Escríbeme por WhatsApp
+      </button>
+    </form>
+  </div>
+
+  <!-- Script WhatsApp -->
+  <script is:inline>
+    function sendToWhatsApp(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value;
+
+      const texto = `Hola, soy ${nombre} y me gustaría hablar sobre un proyecto.`;
+      const url = `https://wa.me/573003146150?text=${encodeURIComponent(texto)}`;
+
+      window.open(url, "_blank");
+      return false;
+    }
+  </script>
+</section>
