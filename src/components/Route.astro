@@ -1,0 +1,110 @@
+<section id="proceso" class="py-24 bg-white px-6 overflow-hidden">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl font-extrabold mb-6">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-600 to-red-500">
+        Mi proceso de trabajo
+      </span>
+    </h2>
+    <p class="text-slate-500 mb-16">
+      Un recorrido desde la idea hasta el software funcionando.
+    </p>
+
+    <div class="relative w-full max-w-5xl mx-auto h-[300px]">
+
+      <!-- Ruta curva -->
+      <svg viewBox="0 0 800 300" class="absolute inset-0 w-full h-full">
+        <path
+          d="M50,200 C200,50 350,350 500,150 S700,50 750,200"
+          fill="none"
+          stroke="url(#grad)"
+          stroke-width="6"
+          stroke-dasharray="1000"
+          stroke-dashoffset="1000"
+          class="route"
+        />
+
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="800" y2="0">
+            <stop offset="0%" stop-color="#4f46e5"/>
+            <stop offset="50%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#ef4444"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Punto animado -->
+      <div class="rocket"></div>
+
+      <!-- Pasos -->
+      <div class="step" style="left: 6%; top: 70%;">1. Idea</div>
+      <div class="step" style="left: 30%; top: 25%;">2. Diseño</div>
+      <div class="step" style="left: 55%; top: 75%;">3. Desarrollo</div>
+      <div class="step" style="left: 75%; top: 30%;">4. Despliegue</div>
+      <div class="step" style="left: 92%; top: 70%;">5. Evolución</div>
+
+    </div>
+  </div>
+
+  <style>
+    /* Ruta animada */
+    .route {
+      animation: drawLine 4s ease forwards;
+    }
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Punto animado */
+    .rocket {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed, #ef4444);
+      box-shadow: 0 10px 20px rgba(79,70,229,0.4);
+      offset-path: path("M50,200 C200,50 350,350 500,150 S700,50 750,200");
+      offset-rotate: auto;
+      animation: moveRocket 4s ease forwards;
+    }
+
+    @keyframes moveRocket {
+      from {
+        offset-distance: 0%;
+      }
+      to {
+        offset-distance: 100%;
+      }
+    }
+
+    /* Pasos */
+    .step {
+      position: absolute;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: white;
+      border: 1px solid #e2e8f0;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      animation: showStep 0.6s ease forwards;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    .step:nth-child(3) { animation-delay: 0.5s; }
+    .step:nth-child(4) { animation-delay: 1s; }
+    .step:nth-child(5) { animation-delay: 1.5s; }
+    .step:nth-child(6) { animation-delay: 2s; }
+    .step:nth-child(7) { animation-delay: 2.5s; }
+
+    @keyframes showStep {
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+  </style>
+</section>

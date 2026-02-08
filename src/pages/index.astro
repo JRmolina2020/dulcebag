@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
+import HeroLenguaje from "../components/heroLenguaje.astro";
 import Features from "../components/Features.astro";
 import Pricing from "../components/Pricing.astro";
 import Benefits from "../components/Benefits.astro";
@@ -18,8 +19,8 @@ import SoporteInfo from "../components/SoporteInfo.astro";
 import PopPrivacidad from "../components/PopPrivacidad.astro";
 import TestimoniosClientes from "../components/TestimoniosClientes.astro";
 import HeroAdministraNegocio from "../components/HeroAdministraNegocio.astro";
-import BienvenidaPop from "../components/BienvenidaPop.astro";
-import InfoPlan from "../components/InfoPlan.astro";
+import Route from "../components/Route.astro";
+
 ---
 
 <BaseLayout title="JRINHOUSE - Transformo ideas en software">
@@ -31,7 +32,10 @@ import InfoPlan from "../components/InfoPlan.astro";
   image="/img/yo.jpg"
 />
 <Hero/>
+<HeroLenguaje/>
   <Features />
+   <Route />
+
   <Divtextu />
   <VideoInfo
     videoSrc="/videos/video.mp4"
