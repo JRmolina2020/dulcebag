@@ -1,48 +1,137 @@
 ---
 const {
-  title = "Administra tu negocio",
-  subtitle = "CuarentaF es la plataforma que te ayuda a controlar tus ventas, gastos, inventario y reportes. Todo desde un solo lugar, sin complicaciones.",
+  title = "Transformo ideas en software",
+  subtitle = "Soy José R. Molina, ingeniero de software de Valledupar y fundador de JRINHOUSE y CuarentaF. Más de 5 años desarrollando soluciones cloud y aplicaciones escalables.",
   cta = "Hablemos de software",
   image = "/img/yo.png",
 } = Astro.props;
+
+const words = ["Escalables", "Seguros", "Disponibles", "Automatizados"];
 ---
 
 <section
-  class="relative w-full min-h-screen px-6 flex items-center justify-center text-center bg-cover"
+  class="relative w-full min-h-screen px-6 flex items-center justify-center text-center bg-cover bg-no-repeat"
   style={`background-image: url(${image}); background-position: center 80%;`}
 >
-  <!-- Overlay oscuro para legibilidad -->
-  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="absolute inset-0 bg-black/70"></div>
 
-  <!-- Contenido -->
-  <div class="relative z-10 max-w-2xl">
-    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4">
-      {title}
+  <div
+    class="relative z-10 max-w-4xl"
+    id="typewriter-container"
+    data-words={JSON.stringify(words)}
+  >
+    <h2
+      class="flex flex-wrap justify-center items-baseline gap-x-3 text-3xl md:text-6xl font-extrabold text-white mb-6 uppercase tracking-tight leading-tight"
+    >
+      <span>{title}</span>
+      <span id="typewriter-span" class="typewriter-text">&nbsp;</span>
     </h2>
-    <p class="text-white/80 text-base md:text-lg mb-8">
+
+    <p class="text-white/80 text-base md:text-xl mb-10 max-w-2xl mx-auto">
       {subtitle}
     </p>
 
     <a
       href="https://wa.me/573003146150?text=Hola,%20quiero%20hablar%20de%20software"
-      class="btn-premium text-white px-8 py-3 rounded-full font-semibold shadow-lg transition inline-block"
+      class="btn-white-premium px-10 py-4 rounded-full font-bold shadow-xl transition inline-block uppercase tracking-widest text-sm md:text-base"
       target="_blank"
     >
       {cta}
     </a>
   </div>
 
-  <!-- Estilos -->
   <style>
-    .btn-premium {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed, #ef4444);
-      transition: all 0.3s ease;
+    /* Alineación y Estilo del Typewriter */
+    .typewriter-text {
+      color: #adadad;
+      display: inline-block;
+      min-height: 1em;
+      border-right: 4px solid #60a5fa;
+      padding-right: 4px;
+      /* Ajuste milimétrico para que no se vea "arriba" */
+      transform: translateY(2px);
     }
 
-    .btn-premium:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(79,70,229,0.4);
-      filter: brightness(1.05);
+    .cursor-blink {
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%,
+      100% {
+        border-color: #60a5fa;
+      }
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    /* Estilo del Botón Blanco */
+    .btn-white-premium {
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-white-premium:hover {
+      background-color: #f3f4f6;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.3),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
   </style>
+
+  <script>
+    function initTypewriter() {
+      const container = document.getElementById("typewriter-container");
+      const typewriterSpan = document.getElementById("typewriter-span");
+
+      if (!container || !typewriterSpan) return;
+
+      const words = JSON.parse(container.getAttribute("data-words") || "[]");
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let typeSpeed = 100;
+
+      function type() {
+        if (!typewriterSpan) return;
+        const currentWord = words[wordIndex];
+
+        if (isDeleting) {
+          const nextText = currentWord.substring(0, charIndex - 1);
+          typewriterSpan.innerHTML = nextText === "" ? "&nbsp;" : nextText;
+          charIndex--;
+          typeSpeed = 50;
+        } else {
+          typewriterSpan.innerHTML = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+          typeSpeed = 150;
+        }
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          isDeleting = true;
+          typeSpeed = 2000;
+          typewriterSpan.classList.add("cursor-blink");
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          typeSpeed = 500;
+          typewriterSpan.classList.remove("cursor-blink");
+        } else {
+          typewriterSpan.classList.remove("cursor-blink");
+        }
+
+        setTimeout(type, typeSpeed);
+      }
+
+      type();
+    }
+
+    initTypewriter();
+    document.addEventListener("astro:page-load", initTypewriter);
+    document.addEventListener("astro:after-swap", initTypewriter);
+  </script>
 </section>
