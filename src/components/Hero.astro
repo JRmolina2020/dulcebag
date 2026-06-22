@@ -1,169 +1,378 @@
 ---
-// Datos simulados con los productos de la imagen de referencia
+// Datos simulados con los productos (agregados campos extra para la vista de detalle)
 const productos = [
   {
     id: 1,
     tag: "MÁS VENDIDO",
     nombre: "The tote bag negro",
     precio: "$140.000 COP",
-    imagenes: ["/img/pp1.png", "/img/pp1.png"]
+    imagenes: ["/img/pp1.png", "/img/pp1.png"],
+    descripcion: "Diseño minimalista, fabricado con amor desde valledupar",
+    colores: ["#000000", "#e3b8b8", "#b29a73"]
   },
   {
     id: 2,
     tag: "NUEVO",
     nombre: "The tote bag rosa",
     precio: "$140.000 COP",
-    imagenes: ["/img/pp2.png", "/img/pp2.png"]
+    imagenes: ["/img/pp2.png", "/img/pp2.png"],
+  descripcion: "Diseño minimalista, fabricado con amor desde valledupar",
+    colores: ["#e3b8b8", "#000000", "#b29a73"]
   },
   {
     id: 3,
     tag: "NUEVO",
     nombre: "The tote bag beige",
     precio: "$140.000 COP",
-    imagenes: ["/img/pp3.png", "/img/pp3.png"]
+    imagenes: ["/img/pp3.png", "/img/pp3.png"],
+    descripcion: "Diseño minimalista, fabricado con amor desde valledupar",
+    colores: ["#f1ebda", "#000000", "#e3b8b8", "#c69e65"]
   },
   {
     id: 4,
     tag: "NUEVO",
     nombre: "The tote bag miel",
     precio: "$140.000 COP",
-    imagenes: ["/img/pp4.png", "/img/pp4.png"]
+    imagenes: ["/img/pp4.png", "/img/pp4.png"],
+   descripcion: "Diseño minimalista, fabricado con amor desde valledupar",
+   
+    colores: ["#c69e65", "#000000", "#f1ebda"]
   },
-    {
+  {
     id: 5,
     tag: "PERSONALIZADO",
     nombre: "The mini bag rojo",
     precio: "$70.000 COP",
-    imagenes: ["/img/pp5.png", "/img/pp5.png"]
+    imagenes: ["/img/pp5.png", "/img/pp5.png"],
+   descripcion: "Diseño minimalista, fabricado con amor desde valledupar",
+    colores: ["#dc2626", "#000000"]
   },
-    {
+  {
     id: 6,
     tag: "PERSONALIZADO",
     nombre: "The mini bag negro",
     precio: "$70.000 COP",
-    imagenes: ["/img/pp6.png", "/img/pp6.png"]
+    imagenes: ["/img/pp6.png", "/img/pp6.png"],
+    descripcion: "Diseño minimalista, fabricado con amor desde valledupar",
+   
+    colores: ["#000000", "#dc2626"]
   },
-   {
+  {
     id: 7,
     tag: "PERSONALIZADO",
     nombre: "The mini bag beige",
-    precio: "$140.000 COP",
-    imagenes: ["/img/pp8.png", "/img/pp8.png"]
+    precio: "$70.000 COP",
+    imagenes: ["/img/pp8.png", "/img/pp8.png"],
+    descripcion: "Diseño minimalista, fabricado con amor desde valledupar",
+  
+    colores: ["#f1ebda", "#000000"]
   }
 ];
 ---
 
-<section id="productos" class="py-16 bg-white px-4 md:px-6">
+<section id="productos" class="py-16 bg-stone-100 px-4 md:px-6">
   <div class="max-w-7xl mx-auto">
+
     <h2 class="text-2xl md:text-4xl font-light tracking-widest text-center uppercase mb-12 text-slate-800">
       Nueva Colección
     </h2>
 
-    {/* Grid de Productos */}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+
       {productos.map((producto) => (
-        <div class="product-card group flex flex-col justify-between" data-id={producto.id}>
-          
-          {/* CAMBIO 1: Cambiado a aspect-square (1:1) para que el contenedor use todo el ancho */}
-          <div class="relative aspect-square bg-[#f7f7f7] overflow-hidden rounded-sm cursor-pointer mb-4 flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.03] group-hover:shadow-md">
-            
-            {/* Tag / Etiqueta del producto (NUEVO / RESTOCK) */}
+
+        <div class="product-card group flex flex-col" data-id={producto.id}>
+
+          <div 
+            class="open-modal-trigger relative aspect-square bg-[#f7f7f7] overflow-hidden rounded-md cursor-pointer shadow-sm hover:shadow-md transition-shadow"
+            data-nombre={producto.nombre}
+            data-precio={producto.precio}
+            data-imagen={producto.imagenes[0]}
+            data-tag={producto.tag || ''}
+            data-descripcion={producto.descripcion || ''}
+            data-colores={JSON.stringify(producto.colores || [])}
+          >
+
+            <div class="loader absolute inset-0 flex items-center justify-center bg-white z-30 transition-opacity duration-300">
+              <div class="w-8 h-8 border-4 border-[#b29a73] border-t-transparent rounded-full animate-spin"></div>
+            </div>
+
             {producto.tag && (
-              <span class="absolute top-3 left-3 z-20 bg-[#b29a73] text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded-xs shadow-xs">
+              <span class="absolute top-3 left-3 z-20 bg-[#b29a73] text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider rounded">
                 {producto.tag}
               </span>
             )}
 
-            {/* Render de Imágenes para el carrusel en Hover */}
             <div class="absolute inset-0 carousel-container">
               {producto.imagenes.map((img, idx) => (
-                <img 
-                  src={img} 
-                  alt={`${producto.nombre} - Vista ${idx + 1}`}
-             
-                  class={`absolute inset-0 w-full h-full object-contain p-1 mix-blend-multiply transition-opacity duration-700 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                  data-index={idx}
+                <img
+                  src={img}
+                  alt={`${producto.nombre} ${idx + 1}`}
+                  loading="lazy"
+                  class={`product-image absolute inset-0 w-full h-full object-contain p-2 transition-opacity duration-700 ease-in-out ${
+                    idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  }`}
+                  onload="this.closest('.product-card').querySelector('.loader')?.classList.add('opacity-0')"
                 />
               ))}
             </div>
 
-            {/* Overlay sutil oscuro al hacer hover */}
-            <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-black/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-            {/* Botón Compra Rápida */}
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 w-[85%]">
-              <a 
-                href={`https://wa.me/573003146150?text=${encodeURIComponent(`Hola, me interesa comprar el bolso: ${producto.nombre}`)}`}
-                target="_blank"
-                class="flex items-center justify-center gap-2 w-full bg-white text-black font-medium text-xs md:text-sm py-3 px-4 rounded-full shadow-lg hover:bg-neutral-100 transition-colors uppercase tracking-wider"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="w-4 h-4">
-                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7z"/>
-                </svg>
-                Compra Rápida
-              </a>
-            </div>
           </div>
 
-          {/* Información del Producto */}
-          <div class="text-center px-1">
-            <h3 class="text-sm md:text-base font-semibold text-neutral-800 tracking-tight mb-1">
+          <div class="text-center mt-4 flex-grow">
+            <h3 class="text-sm md:text-base font-semibold text-neutral-800">
               {producto.nombre}
             </h3>
-            <p class="text-xs md:text-sm text-neutral-600 font-bold">
+            <p class="text-xs md:text-sm text-neutral-600 font-bold mt-1">
               {producto.precio}
             </p>
           </div>
 
+          <div class="mt-4">
+            <a
+              href={`https://wa.me/573003146150?text=${encodeURIComponent(`Hola, me interesa comprar el bolso: ${producto.nombre}`)}`}
+              target="_blank"
+              class="block w-full text-center bg-[#b29a73] hover:bg-[#9d8765] text-white py-3 rounded-md text-sm font-semibold uppercase tracking-wider transition-all duration-300"
+            >
+              Comprar
+            </a>
+          </div>
+
         </div>
+
       ))}
+
     </div>
+
   </div>
 </section>
 
-<script>
-  function initProductCarousels() {
-    const cards = document.querySelectorAll('.product-card');
+<div
+  id="productModal"
+  class="fixed inset-0 hidden z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 opacity-0"
+>
+  <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] md:max-h-[85vh] overflow-y-auto md:overflow-hidden grid grid-cols-1 md:grid-cols-2 relative shadow-2xl animate-modal-in">
+    
+    <button
+      id="closeProductModal"
+      class="absolute top-4 right-4 text-neutral-400 hover:text-neutral-800 text-3xl transition z-50 p-2"
+    >
+      ×
+    </button>
 
-    cards.forEach(card => {
-      const images = card.querySelectorAll('.carousel-container img') as NodeListOf<HTMLImageElement>;
-      if (images.length <= 1) return;
+    <div class="relative bg-[#f7f7f7] flex items-center justify-center p-6 min-h-[300px] md:min-h-full">
+      <span id="modalTag" class="absolute top-4 left-4 z-20 bg-[#b29a73] text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider rounded hidden">
+        NUEVO
+      </span>
+      <img
+        id="modalProductImg"
+        src=""
+        alt="Producto"
+        class="max-w-full max-h-[400px] md:max-h-[500px] object-contain rounded-lg"
+      />
+    </div>
 
-      let intervalId: number | null = null;
-      let currentIndex = 0;
+    <div class="p-6 md:p-10 flex flex-col justify-center h-full">
+      
+      <h2 id="modalTitle" class="text-2xl md:text-3xl font-light text-neutral-800 tracking-wide mb-2">
+        Nombre del Producto
+      </h2>
+      
+      <p id="modalPrice" class="text-xl font-bold text-neutral-900 mb-6">
+        $0 COP
+      </p>
 
-      card.addEventListener('mouseenter', () => {
-        intervalId = window.setInterval(() => {
-          images[currentIndex].classList.replace('opacity-100', 'opacity-0');
-          images[currentIndex].classList.replace('z-10', 'z-0');
+      <div class="text-sm text-neutral-600 space-y-2 mb-6 border-t pt-4 border-neutral-100">
+        <p id="modalDescription">Cargando descripción...</p>
+        <p class="text-xs text-neutral-400 font-medium">Medidas: <span id="modalMeasures">-</span></p>
+      </div>
 
-          currentIndex = (currentIndex + 1) % images.length;
+      <div class="mb-4">
+        <span class="text-xs font-bold uppercase text-neutral-500 tracking-wider block mb-2">Color</span>
+        <div id="modalColorContainer" class="flex gap-2">
+          </div>
+      </div>
 
-          images[currentIndex].classList.replace('opacity-0', 'opacity-100');
-          images[currentIndex].classList.replace('z-0', 'z-10');
-        }, 1500); 
-      });
+      <div class="mb-8">
+        <label for="modalSizeSelect" class="text-xs font-bold uppercase text-neutral-500 tracking-wider block mb-2">Talla / Tamaño</label>
+        <div class="relative">
+          <select 
+            id="modalSizeSelect" 
+            class="block w-full bg-white border border-neutral-200 text-neutral-700 py-3 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:border-[#b29a73] text-sm appearance-none"
+          >
+            <option>Tamaño Único (Estándar)</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-500">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          </div>
+        </div>
+      </div>
 
-      card.addEventListener('mouseleave', () => {
-        if (intervalId) {
-          clearInterval(intervalId);
-          intervalId = null;
-        }
+      <div class="space-y-3">
+        <a
+          id="modalBuyBtn"
+          href="#"
+          target="_blank"
+          class="block w-full text-center bg-[#b29a73] hover:bg-[#9d8765] text-white py-3.5 rounded-lg text-sm font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm"
+        >
+          Comprar Ahora
+        </a>
         
-        images.forEach((img, idx) => {
-          if (idx === 0) {
-            img.classList.replace('opacity-0', 'opacity-100');
-            img.classList.replace('z-0', 'z-10');
-          } else {
-            img.classList.replace('opacity-100', 'opacity-0');
-            img.classList.replace('z-10', 'z-0');
-          }
-        });
-        currentIndex = 0;
-      });
+        <a
+          id="modalWpSupport"
+          href="#"
+          target="_blank"
+          class="flex items-center justify-center gap-2 w-full text-center text-xs font-medium text-neutral-600 hover:text-neutral-900 transition-colors py-2"
+        >
+          <svg class="w-4 h-4 fill-current text-green-600" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.398 1.451 5.34 1.452 5.4 0 9.794-4.392 9.797-9.793.002-2.618-1.017-5.08-2.871-6.934C17.009 1.99 14.542.972 12.01.971c-5.4 0-9.794 4.393-9.799 9.795-.001 1.855.485 3.667 1.411 5.263l-.993 3.626 3.714-.974zm11.025-6.924c-.302-.15-1.786-.882-2.056-.98-.27-.099-.467-.148-.663.15-.197.297-.762.979-.933 1.177-.171.198-.343.223-.645.074-.3-.15-1.267-.467-2.413-1.492-.892-.797-1.494-1.781-1.67-2.08-.175-.299-.019-.461.13-.61.135-.133.303-.353.454-.53.151-.176.201-.299.302-.497.101-.199.05-.372-.025-.521-.075-.15-.663-1.597-.91-2.186-.24-.576-.484-.497-.663-.506-.171-.008-.368-.01-.565-.01s-.517.074-.788.372c-.27.297-1.03 1.007-1.03 2.456s1.004 2.848 1.144 3.048c.14.2 1.976 3.018 4.786 4.231.668.289 1.19.462 1.597.592.672.213 1.284.183 1.767.11.539-.08 1.786-.732 2.039-1.441.252-.709.252-1.316.177-1.441-.075-.124-.27-.199-.572-.349z"/></svg>
+          ¿Tienes dudas? Consultar por WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Animación refinada de entrada */
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-modal-in {
+    animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
+
+<script>
+function initProductCarousels() {
+  const cards = document.querySelectorAll('.product-card');
+  cards.forEach(card => {
+    const images = card.querySelectorAll('.carousel-container img');
+    if(images.length <= 1) return;
+
+    let currentIndex = 0;
+    let intervalId = null;
+
+    card.addEventListener('mouseenter', () => {
+      intervalId = setInterval(() => {
+        images[currentIndex].classList.replace('opacity-100','opacity-0');
+        images[currentIndex].classList.replace('z-10','z-0');
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.replace('opacity-0','opacity-100');
+        images[currentIndex].classList.replace('z-0','z-10');
+      }, 1500);
     });
+
+    card.addEventListener('mouseleave', () => {
+      clearInterval(intervalId);
+      images.forEach((img, index) => {
+        if(index === 0){
+          img.classList.replace('opacity-0','opacity-100');
+          img.classList.replace('z-0','z-10');
+        } else {
+          img.classList.replace('opacity-100','opacity-0');
+          img.classList.replace('z-10','z-0');
+        }
+      });
+      currentIndex = 0;
+    });
+  });
+}
+
+function initProductModal() {
+  const modal = document.getElementById('productModal');
+  const closeBtn = document.getElementById('closeProductModal');
+  
+  // Elementos internos del modal
+  const modalImg = document.getElementById('modalProductImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalTag = document.getElementById('modalTag');
+  const modalDescription = document.getElementById('modalDescription');
+  const modalMeasures = document.getElementById('modalMeasures');
+  const modalColorContainer = document.getElementById('modalColorContainer');
+  const modalBuyBtn = document.getElementById('modalBuyBtn');
+  const modalWpSupport = document.getElementById('modalWpSupport');
+
+  if (!modal) return;
+
+  // Escuchar clicks en el contenedor/trigger de la imagen de cada tarjeta
+  document.querySelectorAll('.open-modal-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      // 1. Extraer los datos del dataset del HTML de Astro
+      const nombre = trigger.getAttribute('data-nombre');
+      const precio = trigger.getAttribute('data-precio');
+      const imagen = trigger.getAttribute('data-imagen');
+      const tag = trigger.getAttribute('data-tag');
+      const descripcion = trigger.getAttribute('data-descripcion');
+      const medidas = trigger.getAttribute('data-medidas');
+      const colores = JSON.parse(trigger.getAttribute('data-colores') || '[]');
+
+      // 2. Renderizar la información en la ventana modal
+      modalImg.src = imagen;
+      modalImg.alt = nombre;
+      modalTitle.textContent = nombre;
+      modalPrice.textContent = precio;
+      modalDescription.textContent = descripcion;
+      modalMeasures.textContent = medidas;
+
+      // Tag Condicional
+      if (tag) {
+        modalTag.textContent = tag;
+        modalTag.classList.remove('hidden');
+      } else {
+        modalTag.classList.add('hidden');
+      }
+
+      // Renderizar círculos de colores
+      modalColorContainer.innerHTML = '';
+      colores.forEach((color, idx) => {
+        const span = document.createElement('span');
+        span.className = `w-6 h-6 rounded-full border border-neutral-300 cursor-pointer inline-block transition-transform hover:scale-110 ${idx === 0 ? 'ring-2 ring-[#b29a73] ring-offset-2' : ''}`;
+        span.style.backgroundColor = color;
+        modalColorContainer.appendChild(span);
+      });
+
+      // Actualizar URLs de conversión a WhatsApp
+      const wpBaseText = `Hola, me interesa comprar el bolso: ${nombre}`;
+      const wpSupportText = `Hola, tengo una consulta sobre el producto: ${nombre}`;
+      modalBuyBtn.href = `https://wa.me/573003146150?text=${encodeURIComponent(wpBaseText)}`;
+      modalWpSupport.href = `https://wa.me/573003146150?text=${encodeURIComponent(wpSupportText)}`;
+
+      // 3. Ejecutar animaciones de apertura
+      modal.classList.remove('hidden');
+      setTimeout(() => { modal.classList.add('opacity-100') }, 10);
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Función para cerrar modal
+  const closeModal = () => {
+    modal.classList.remove('opacity-100');
+    setTimeout(() => { modal.classList.add('hidden') }, 300);
+    document.body.style.overflow = '';
   }
 
+  closeBtn?.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+  });
+}
+
+// Inicialización respetando el ciclo de vida de Astro
+document.addEventListener('DOMContentLoaded', () => {
   initProductCarousels();
-  document.addEventListener('astro:page-load', initProductCarousels);
+  initProductModal();
+});
+
+document.addEventListener('astro:page-load', () => {
+  initProductCarousels();
+  initProductModal();
+});
 </script>
