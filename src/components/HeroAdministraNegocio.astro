@@ -2,37 +2,29 @@
 const {
   title = "Transformo ideas en software",
   subtitle = "Soy José R. Molina, ingeniero de software de Valledupar y fundador de JRINHOUSE y CuarentaF. Más de 5 años desarrollando soluciones cloud y aplicaciones escalables.",
-  cta = "Hablemos de software",
+  cta = "",
   image = "/img/yo.png",
 } = Astro.props;
-
-const words = ["Escalables", "Seguros", "Disponibles", "Automatizados"];
 ---
 
 <section
   class="relative w-full min-h-screen px-6 flex items-center justify-center text-center bg-cover bg-no-repeat"
   style={`background-image: url(${image}); background-position: center 80%;`}
 >
+  {/* Capa oscura de superposición para mejorar el contraste del texto */}
   <div class="absolute inset-0 bg-black/70"></div>
 
-  <div
-    class="relative z-10 max-w-4xl"
-    id="typewriter-container"
-    data-words={JSON.stringify(words)}
-  >
-    <h2
-      class="flex flex-wrap justify-center items-baseline gap-x-3 text-3xl md:text-6xl font-extrabold text-white mb-6 uppercase tracking-tight leading-tight"
-    >
-      <span>{title}</span>
-      <span id="typewriter-span" class="typewriter-text">&nbsp;</span>
+  <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center justify-center">
+    <h2 class="text-3xl md:text-6xl font-extrabold text-white mb-6 uppercase tracking-tight leading-tight">
+      {title}
     </h2>
 
-    <p class="text-white/80 text-base md:text-xl mb-10 max-w-2xl mx-auto">
+    <p class="text-white/80 text-base md:text-xl mb-10 max-w-2xl">
       {subtitle}
     </p>
 
     <a
-      href="https://wa.me/573003146150?text=Hola,%20quiero%20hablar%20de%20software"
+      href="https://wa.me/573003146150?text=Hola,%20quiero%20comprar%20%20una referencia"
       class="btn-white-premium px-10 py-4 rounded-full font-bold shadow-xl transition inline-block uppercase tracking-widest text-sm md:text-base"
       target="_blank"
     >
@@ -41,32 +33,7 @@ const words = ["Escalables", "Seguros", "Disponibles", "Automatizados"];
   </div>
 
   <style>
-    /* Alineación y Estilo del Typewriter */
-    .typewriter-text {
-      color: #adadad;
-      display: inline-block;
-      min-height: 1em;
-      border-right: 4px solid #60a5fa;
-      padding-right: 4px;
-      /* Ajuste milimétrico para que no se vea "arriba" */
-      transform: translateY(2px);
-    }
-
-    .cursor-blink {
-      animation: blink 0.7s step-end infinite;
-    }
-
-    @keyframes blink {
-      0%,
-      100% {
-        border-color: #60a5fa;
-      }
-      50% {
-        border-color: transparent;
-      }
-    }
-
-    /* Estilo del Botón Blanco */
+    /* Estilo Premium del Botón Blanco */
     .btn-white-premium {
       background-color: #ffffff;
       color: #000000;
@@ -82,56 +49,4 @@ const words = ["Escalables", "Seguros", "Disponibles", "Automatizados"];
         0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
   </style>
-
-  <script>
-    function initTypewriter() {
-      const container = document.getElementById("typewriter-container");
-      const typewriterSpan = document.getElementById("typewriter-span");
-
-      if (!container || !typewriterSpan) return;
-
-      const words = JSON.parse(container.getAttribute("data-words") || "[]");
-      let wordIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      let typeSpeed = 100;
-
-      function type() {
-        if (!typewriterSpan) return;
-        const currentWord = words[wordIndex];
-
-        if (isDeleting) {
-          const nextText = currentWord.substring(0, charIndex - 1);
-          typewriterSpan.innerHTML = nextText === "" ? "&nbsp;" : nextText;
-          charIndex--;
-          typeSpeed = 50;
-        } else {
-          typewriterSpan.innerHTML = currentWord.substring(0, charIndex + 1);
-          charIndex++;
-          typeSpeed = 150;
-        }
-
-        if (!isDeleting && charIndex === currentWord.length) {
-          isDeleting = true;
-          typeSpeed = 2000;
-          typewriterSpan.classList.add("cursor-blink");
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          wordIndex = (wordIndex + 1) % words.length;
-          typeSpeed = 500;
-          typewriterSpan.classList.remove("cursor-blink");
-        } else {
-          typewriterSpan.classList.remove("cursor-blink");
-        }
-
-        setTimeout(type, typeSpeed);
-      }
-
-      type();
-    }
-
-    initTypewriter();
-    document.addEventListener("astro:page-load", initTypewriter);
-    document.addEventListener("astro:after-swap", initTypewriter);
-  </script>
 </section>

@@ -1,121 +1,169 @@
-<section id="servicios" class="py-24 bg-white px-6">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl font-extrabold text-center mb-4">
-      <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-600 to-red-500">
-        Servicios
-      </span>
+---
+// Datos simulados con los productos de la imagen de referencia
+const productos = [
+  {
+    id: 1,
+    tag: "MÁS VENDIDO",
+    nombre: "The tote bag negro",
+    precio: "$140.000 COP",
+    imagenes: ["/img/pp1.png", "/img/pp1.png"]
+  },
+  {
+    id: 2,
+    tag: "NUEVO",
+    nombre: "The tote bag rosa",
+    precio: "$140.000 COP",
+    imagenes: ["/img/pp2.png", "/img/pp2.png"]
+  },
+  {
+    id: 3,
+    tag: "NUEVO",
+    nombre: "The tote bag beige",
+    precio: "$140.000 COP",
+    imagenes: ["/img/pp3.png", "/img/pp3.png"]
+  },
+  {
+    id: 4,
+    tag: "NUEVO",
+    nombre: "The tote bag miel",
+    precio: "$140.000 COP",
+    imagenes: ["/img/pp4.png", "/img/pp4.png"]
+  },
+    {
+    id: 5,
+    tag: "PERSONALIZADO",
+    nombre: "The mini bag rojo",
+    precio: "$70.000 COP",
+    imagenes: ["/img/pp5.png", "/img/pp5.png"]
+  },
+    {
+    id: 6,
+    tag: "PERSONALIZADO",
+    nombre: "The mini bag negro",
+    precio: "$70.000 COP",
+    imagenes: ["/img/pp6.png", "/img/pp6.png"]
+  },
+   {
+    id: 7,
+    tag: "PERSONALIZADO",
+    nombre: "The mini bag beige",
+    precio: "$140.000 COP",
+    imagenes: ["/img/pp8.png", "/img/pp8.png"]
+  }
+];
+---
+
+<section id="productos" class="py-16 bg-white px-4 md:px-6">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-2xl md:text-4xl font-light tracking-widest text-center uppercase mb-12 text-slate-800">
+      Nueva Colección
     </h2>
-    <p class="text-center text-slate-500 mb-12">
-      Selecciona los servicios que te interesan y escríbeme directamente.
-    </p>
 
-    <!-- Grid servicios -->
-    <div id="services-grid" class="grid grid-cols-2 gap-6 md:grid-cols-3">
-      <button class="service-card" data-service="Desarrollo de aplicaciones web">
-        Desarrollo de aplicaciones web
-      </button>
-      <button class="service-card" data-service="Soluciones cloud">
-        Soluciones cloud
-      </button>
-      <button class="service-card" data-service="Consultoría tecnológica">
-        Consultoría tecnológica
-      </button>
-      <button class="service-card" data-service="Diseño de soluciones">
-        Diseño de soluciones
-      </button>
-      <button class="service-card" data-service="UX / UI">
-        UX / UI
-      </button>
-      <button class="service-card" data-service="Estimaciones de proyectos">
-        Estimaciones de proyectos
-      </button>
-      <button class="service-card" data-service="Arquitectura de microservicios">
-        Arquitectura de microservicios
-      </button>
-      <button class="service-card" data-service="Automatización de procesos">
-        Automatización de procesos
-      </button>
-    </div>
+    {/* Grid de Productos */}
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+      {productos.map((producto) => (
+        <div class="product-card group flex flex-col justify-between" data-id={producto.id}>
+          
+          {/* CAMBIO 1: Cambiado a aspect-square (1:1) para que el contenedor use todo el ancho */}
+          <div class="relative aspect-square bg-[#f7f7f7] overflow-hidden rounded-sm cursor-pointer mb-4 flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.03] group-hover:shadow-md">
+            
+            {/* Tag / Etiqueta del producto (NUEVO / RESTOCK) */}
+            {producto.tag && (
+              <span class="absolute top-3 left-3 z-20 bg-[#b29a73] text-white text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider rounded-xs shadow-xs">
+                {producto.tag}
+              </span>
+            )}
 
-    <!-- Selección -->
-    <div class="mt-10 text-center">
-      <p id="selected-text" class="text-slate-600 mb-4">
-        No has seleccionado servicios aún.
-      </p>
+            {/* Render de Imágenes para el carrusel en Hover */}
+            <div class="absolute inset-0 carousel-container">
+              {producto.imagenes.map((img, idx) => (
+                <img 
+                  src={img} 
+                  alt={`${producto.nombre} - Vista ${idx + 1}`}
+             
+                  class={`absolute inset-0 w-full h-full object-contain p-1 mix-blend-multiply transition-opacity duration-700 ease-in-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  data-index={idx}
+                />
+              ))}
+            </div>
 
-      <a
-        id="whatsapp-btn"
-        href="#"
-        class="inline-block opacity-50 pointer-events-none bg-[#0c0c1d] text-white px-8 py-3 rounded-full font-semibold transition"
-        target="_blank"
-      >
-        Preguntarle a JR por esto
-      </a>
+            {/* Overlay sutil oscuro al hacer hover */}
+            <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
+
+            {/* Botón Compra Rápida */}
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 w-[85%]">
+              <a 
+                href={`https://wa.me/573003146150?text=${encodeURIComponent(`Hola, me interesa comprar el bolso: ${producto.nombre}`)}`}
+                target="_blank"
+                class="flex items-center justify-center gap-2 w-full bg-white text-black font-medium text-xs md:text-sm py-3 px-4 rounded-full shadow-lg hover:bg-neutral-100 transition-colors uppercase tracking-wider"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="w-4 h-4">
+                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7z"/>
+                </svg>
+                Compra Rápida
+              </a>
+            </div>
+          </div>
+
+          {/* Información del Producto */}
+          <div class="text-center px-1">
+            <h3 class="text-sm md:text-base font-semibold text-neutral-800 tracking-tight mb-1">
+              {producto.nombre}
+            </h3>
+            <p class="text-xs md:text-sm text-neutral-600 font-bold">
+              {producto.precio}
+            </p>
+          </div>
+
+        </div>
+      ))}
     </div>
   </div>
+</section>
 
-  <!-- Estilos -->
-  <style>
-    .service-card {
-      padding: 1.5rem;
-      border-radius: 1rem;
-      border: 1px solid #e2e8f0;
-      background: white;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    }
-
-    .service-card.active {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed, #ef4444);
-      color: white;
-      border-color: transparent;
-      box-shadow: 0 15px 35px rgba(79,70,229,0.35);
-    }
-  </style>
-
-  <!-- Script -->
-  <script is:inline>
-    const cards = document.querySelectorAll(".service-card");
-    const selectedText = document.getElementById("selected-text");
-    const whatsappBtn = document.getElementById("whatsapp-btn");
-
-    let selectedServices = [];
+<script>
+  function initProductCarousels() {
+    const cards = document.querySelectorAll('.product-card');
 
     cards.forEach(card => {
-      card.addEventListener("click", () => {
-        const service = card.dataset.service;
+      const images = card.querySelectorAll('.carousel-container img') as NodeListOf<HTMLImageElement>;
+      if (images.length <= 1) return;
 
-        if (selectedServices.includes(service)) {
-          selectedServices = selectedServices.filter(s => s !== service);
-          card.classList.remove("active");
-        } else {
-          selectedServices.push(service);
-          card.classList.add("active");
+      let intervalId: number | null = null;
+      let currentIndex = 0;
+
+      card.addEventListener('mouseenter', () => {
+        intervalId = window.setInterval(() => {
+          images[currentIndex].classList.replace('opacity-100', 'opacity-0');
+          images[currentIndex].classList.replace('z-10', 'z-0');
+
+          currentIndex = (currentIndex + 1) % images.length;
+
+          images[currentIndex].classList.replace('opacity-0', 'opacity-100');
+          images[currentIndex].classList.replace('z-0', 'z-10');
+        }, 1500); 
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
         }
-
-        updateUI();
+        
+        images.forEach((img, idx) => {
+          if (idx === 0) {
+            img.classList.replace('opacity-0', 'opacity-100');
+            img.classList.replace('z-0', 'z-10');
+          } else {
+            img.classList.replace('opacity-100', 'opacity-0');
+            img.classList.replace('z-10', 'z-0');
+          }
+        });
+        currentIndex = 0;
       });
     });
+  }
 
-    function updateUI() {
-      if (selectedServices.length === 0) {
-        selectedText.textContent = "No has seleccionado servicios aún.";
-        whatsappBtn.classList.add("opacity-50", "pointer-events-none");
-        whatsappBtn.href = "#";
-      } else {
-        selectedText.textContent = "Servicios seleccionados: " + selectedServices.join(", ");
-
-        const message = `Hola JR, me interesa conocer más sobre estos servicios: ${selectedServices.join(", ")}`;
-        whatsappBtn.href = `https://wa.me/573003146150?text=${encodeURIComponent(message)}`;
-        whatsappBtn.classList.remove("opacity-50", "pointer-events-none");
-      }
-    }
-  </script>
-</section>
+  initProductCarousels();
+  document.addEventListener('astro:page-load', initProductCarousels);
+</script>
